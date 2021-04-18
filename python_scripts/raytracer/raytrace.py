@@ -23,6 +23,8 @@
 #
 import math
 
+__verion__='0.0.01'
+
 class ray:
     def __init__(self, x=0,y=0,z=0,dx=0,dy=0,dz=0):
         self.dx=dx
@@ -221,9 +223,7 @@ class spherical:
 
 #example code starts here
 
-import numpy as np
 
-import sys
 
 def main():
     mydata=open('pydata','w')
@@ -232,6 +232,9 @@ def main():
 
     mysphere=spherical(10)
 
+    import numpy as np
+
+    import sys
 
 
 
