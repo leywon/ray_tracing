@@ -31,9 +31,9 @@ import sys
 
 
 
-mysphere2=rt.spherical(R=10)
+mysphere2=rt.spherical(R=20)
 
-mysphere=rt.spherical(R=10)
+mysphere=rt.spherical(R=20)
 
 
 
