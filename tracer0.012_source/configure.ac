@@ -1,4 +1,4 @@
-AC_INIT([tracer],[0.012],[warrenleywon@gmail.com])
+AC_INIT([tracer],[0.0.0],[warrenleywon@gmail.com])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign subdir-objects])
 
 AM_PROG_AR
