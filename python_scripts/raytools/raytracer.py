@@ -167,6 +167,8 @@ def trace(**kwargs):
                     continue
         
             if k.property()=='refractive' :
+                inra=k.alpha
+                if r.dz<0 : inra=1./inra
                 #the refractive formula
                 dx=k.dev_x(r)
                 dy=k.dev_y(r)
@@ -176,16 +178,16 @@ def trace(**kwargs):
                 #check total reflection
                 sine=idotn*math.sqrt(length2)/r.dlength()
                 sine=math.sqrt(1-sine*sine)
-                if sine>k.alpha :
+                if sine>inra :
                     r.dx+=2*idotn*dx
                     r.dy+=2*idotn*dy
                     r.dz-=2*idotn
                     return bdy.index(k)
 
                 #refractive formula
-                r.dx=(r.dx+idotn*dx)/k.alpha-idotn*dx
-                r.dy=(r.dy+idotn*dy)/k.alpha-idotn*dy
-                r.dz=(r.dz-idotn)/k.alpha+idotn
+                r.dx=(r.dx+idotn*dx)/inra-idotn*dx
+                r.dy=(r.dy+idotn*dy)/inra-idotn*dy
+                r.dz=(r.dz-idotn)/inra+idotn
                 r.advance(step_h)
 
                 return bdy.index(k)
