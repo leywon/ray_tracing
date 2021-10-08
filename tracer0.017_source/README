@@ -2,10 +2,18 @@ This is a simple ray tracing software by Wang Liao
 
 ** Release Note 0.015 **
 
-In this new version, only three new methods were added to the ray class in order to facilitate tracing.
+In this new version, three new methods were added to the ray class in order to facilitate tracing.
 
 WL
 16th of August, 2021
+
+** Release Note 0.017 **
+
+Previous version shows that the calculated spherical aberration doesn't agree with literature, this is due to 
+a fault in the refractive algorithm. In this new version, the refractive formula is corrected.
+
+WL
+8th of October
 
 
 ** Content from the first README **

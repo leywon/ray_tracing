@@ -364,8 +364,8 @@ unsigned long tracer::trace(ray &r,const std::vector<boundary> bv,double step_h,
     double dx;
     double dy;
     double length2;
-    double idotn;
-    double sine;
+    double idotn,beta;
+    double sine,cosine;
     double inra;//index ratio(another name for alpha)
 
     for(unsigned long index=0;index<bv.size();index++){
@@ -390,14 +390,26 @@ unsigned long tracer::trace(ray &r,const std::vector<boundary> bv,double step_h,
                 inra=bv[index].alpha;
                 if(r.dz<0) inra=1/inra;
                 //refractive formula
+                //calculating the derivative, or the surface normal
                 dx=bv[index].dev_x(r);
                 dy=bv[index].dev_y(r);
+                //length2 is the length^2 of the surface normal
                 length2=dx*dx+dy*dy+1.;
+                //surface normal is
+                //(-dx,-dy,1)
+                
                 idotn=(-r.dx*dx-r.dy*dy+r.dz)/length2;
                 //check if there is total reflection
-                sine=idotn*sqrt(length2)/r.dlength();
-                sine=sqrt(1-sine*sine);
+                //calculate the cosine of the anlge
+                
+                //remember: in cpp, abs(int x) only accept a int!
+                //fabs accept a float instead. Caution!
+                cosine=fabs(idotn)*sqrt(length2)/r.dlength();
+                //calculate the sine of the angle
+                sine=sqrt(1.0-cosine*cosine);
+               
                 if(sine>inra){
+                    //total internal reflection formula
                     r.dx+=2*idotn*dx;
                     r.dy+=2*idotn*dy;
                     r.dz-=2*idotn;
@@ -406,9 +418,10 @@ unsigned long tracer::trace(ray &r,const std::vector<boundary> bv,double step_h,
                 }
 
                 //here the refractive formula
-                r.dx=(r.dx+idotn*dx)/inra-idotn*dx;
-                r.dy=(r.dy+idotn*dy)/inra-idotn*dy;
-                r.dz=(r.dz-idotn)/inra+idotn;
+                beta=cosine/sqrt(inra*inra-sine*sine);
+                r.dx=(beta-1)*idotn*dx+beta*r.dx;
+                r.dy=(beta-1)*idotn*dy+beta*r.dy;
+                r.dz=(1-beta)*idotn+beta*r.dz;
                 r+step_h;
 
 
