@@ -1,2 +1,3 @@
 #simple ignore the folder of the build
 build/
+**/.vscode
