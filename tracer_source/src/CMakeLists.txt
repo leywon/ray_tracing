@@ -5,15 +5,19 @@ project(tracer
     VERSION 0.17
 )
 
-set(source_name "tracer")
 
 message(STATUS "Enter the library folder")
 
 #generate static library
-add_library(${source_name} STATIC)
+add_library(${PROJECT_NAME} STATIC)
 
 target_sources(
-    ${source_name}
+    ${PROJECT_NAME}
+    PRIVATE
+    ${PROJECT_NAME}.cpp
+)
+target_include_directories(
+    ${PROJECT_NAME}
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
@@ -23,7 +27,7 @@ target_sources(
 include(GNUInstallDirs)
 
 install(
-    TARGET ${source_name}
+    TARGETS ${PROJECT_NAME}
     #"ARCHIVE" means the static library
     DESTINATION "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}"
     COMPONENT "core"
@@ -31,7 +35,7 @@ install(
 
 #install the header
 install(
-    FILES "${source_name}.hpp"
+    FILES "${PROJECT_NAME}.hpp"
     DESTINATION "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_INCLUDEDIR}"
 )
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY
