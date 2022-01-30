@@ -29,8 +29,9 @@ include(GNUInstallDirs)
 install(
     TARGETS ${PROJECT_NAME}
     #"ARCHIVE" means the static library
-    DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-    COMPONENT "core"
+    ARCHIVE
+    	DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+    	COMPONENT "core"
 )
 
 #install the header
